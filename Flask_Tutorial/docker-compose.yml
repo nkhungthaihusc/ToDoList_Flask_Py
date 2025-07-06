@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  todolist:
+    build:
+      context: .
+    ports:
+      - "8888:5000"

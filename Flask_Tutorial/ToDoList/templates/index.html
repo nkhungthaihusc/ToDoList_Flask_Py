@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %} HomePage {% endblock %}
+
+{% block content %}
+<h1 class="text-center my-4">Ghi chú của bạn</h1>
+
+<div class="container">
+    <table class="table table-hover table-bordered align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>Nội dung</th>
+                <th>Thời gian</th>
+                <th class="text-center">Hành động</th>
+            </tr>
+        </thead>
+        <tbody id="notes">
+            {% for note in user.notes %}
+            <tr id="note-{{ note.id }}">
+                <td>{{ note.content }}</td>
+                <td>{{ note.date_created.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-success btn-sm me-2"
+                            onClick="markCompleted({{ note.id }})" title="Đánh dấu hoàn thành">
+                        &#10003;
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm"
+                            onClick="deleteNote({{ note.id }})" title="Xóa ghi chú">
+                        &times;
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <form method="POST">
+        <div class="mb-3">
+            <label for="note" class="form-label">Thêm ghi chú mới:</label>
+            <textarea name="note" id="note" class="form-control" rows="3" required></textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Add Note</button>
+        </div>
+    </form>
+</div>
+
+<style>
+    .completed-row {
+        background-color: #d4edda !important;
+    }
+</style>
+{% endblock %}
